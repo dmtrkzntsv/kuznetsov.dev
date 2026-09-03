@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://kuznetsov.dev/sitemap-index.xml

@@ -1,0 +1,86 @@
+<!DOCTYPE html><html lang="ru"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Синтезируем английскую речь</title><meta name="description" content="Как при помощи нейронных сетей можно синтезировать английскую речь, на примере Coqui"><link rel="canonical" href="https://kuznetsov.dev/ru/blog/text-to-speech/"><meta property="og:title" content="Синтезируем английскую речь"><meta property="og:description" content="Как при помощи нейронных сетей можно синтезировать английскую речь, на примере Coqui"><meta property="og:type" content="article"><meta property="og:url" content="https://kuznetsov.dev/ru/blog/text-to-speech/"><meta property="og:image" content="https://kuznetsov.dev/og-image.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:locale" content="ru_RU"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@deer_avenger"><meta name="twitter:title" content="Синтезируем английскую речь"><meta name="twitter:description" content="Как при помощи нейронных сетей можно синтезировать английскую речь, на примере Coqui"><meta name="twitter:image" content="https://kuznetsov.dev/twitter-image.jpg"><link rel="alternate" hreflang="ru" href="https://kuznetsov.dev/ru/blog/text-to-speech/"><link rel="alternate" hreflang="x-default" href="https://kuznetsov.dev/"><link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96"><link rel="icon" type="image/svg+xml" href="/favicons/favicon.svg"><link rel="shortcut icon" href="/favicons/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png"><link rel="manifest" href="/favicons/site.webmanifest"><script defer src="https://t.kuznetsov.dev/js/twillingate.js" data-key="ak_8d67e774d43c34d9fb0cfd2f8bff12cd" data-identity="anonymous"></script><link rel="stylesheet" href="/_astro/_slug_.DE3wu0sT.css">
+<style>.tag-list[data-astro-cid-lga65v7i]{list-style:none;margin:0;padding:0}.callout[data-astro-cid-pyumqe5w]{border-left:3px solid var(--accent);background:var(--surface-2);border-radius:var(--radius-sm);padding:1rem 1.2rem;margin:1.5em 0}.callout--warn[data-astro-cid-pyumqe5w]{border-color:#c98a00}.callout--info[data-astro-cid-pyumqe5w]{border-color:#5670c2}.callout__title[data-astro-cid-pyumqe5w]{font-weight:600;margin-bottom:.4rem;color:var(--text-strong)}
+.social-links[data-astro-cid-zamss57n]{list-style:none;margin:0;padding:0}
+</style></head> <body> <a href="#main" class="skip-link">Skip to content</a> <nav class="lang-switcher-floating" aria-label="Language" data-astro-cid-su6xvggn> <a href="/blog/text-to-speech/" data-astro-cid-su6xvggn>EN</a> <span aria-hidden="true" data-astro-cid-su6xvggn>/</span> <a href="/ru/blog/text-to-speech/" aria-current="true" data-astro-cid-su6xvggn>RU</a> </nav>  <main id="main">  <article class="container section"> <nav class="post-breadcrumbs" aria-label="Breadcrumbs"> <a href="/ru/">Главная</a> <span aria-hidden="true">/</span> <a href="/ru/blog/">Блог</a> </nav> <header class="stack-tight" style="margin-bottom: 2rem;"> <h1 style="font-size: 2.2rem; line-height: 1.2;">Синтезируем английскую речь</h1> <p class="post-card__meta" style="font-size: 0.95rem;"> <time datetime="2022-12-26T00:00:00.000Z">26 декабря 2022 г.</time>   </p> <ul class="tag-list" aria-label="Tags" data-astro-cid-lga65v7i><li data-astro-cid-lga65v7i><a class="tag" href="/ru/tags/howto/" data-astro-cid-lga65v7i>#howto</a></li><li data-astro-cid-lga65v7i><a class="tag" href="/ru/tags/tools/" data-astro-cid-lga65v7i>#tools</a></li></ul> </header> <div class="prose">  <p>На прошлой неделе меня попросили записать видео-инструкцию и озвучить ее на английском языке, чтобы можно было поделиться
+этим с интеграторами.
+Я написал текст и попытался бодро озвучить видео несколько раз, но акцент и не самая беглая речь давали
+результат, которым я не был доволен.
+Чтобы не мучать себя и слушателей, я нашел сервис, который сам озвучивает текст с чувством, толком, расстановкой. Внес туда написанный
+текст, скачал полученную звуковую дорожку, наложил на видео и остался доволен смотнированным результатом.</p>
+<p>Все это меня натолкнуло на то, что, конечно же, нужно прокачивать язык. А еще неплохо задокументировать
+те знания и эксперименты, которые я проводил с использованием Text-to-Speech.</p>
+<h2 id="что-такое-text-to-speech">Что такое Text-to-Speech?</h2>
+<p>Наверняка многие из вас сталкивались с роботизированной озвучкой: в google translate, любимой онлайн-школе английского
+языка, игре или приложении. Это технология Text-to-Speech (TTS), которая буквально преобразовывает текст в речь.</p>
+<p>Сама технология не нова и используется уже много лет. Но как и любая технология - она развивалась постепенно.
+Голоса современных помощников типа Алисы уже сложно отличить от человеческого, но за этим скрывалось
+колосальное количество работы.</p>
+<p>Сейчас для того, чтобы использовать Text-to-Speech в своем приложении достаточно выбрать онлайн-сервис, который
+предоставляет эти услуги, например:</p>
+<ul>
+<li><a href="https://cloud.yandex.ru/services/speechkit">Яндекс.Speechkit</a> классно говорит по русски, но отвратительно звучит на английском;</li>
+<li><a href="https://aws.amazon.com/ru/polly/">Amazon Polly</a> выдает очень хорошую озвучку на английском (а может и на других языках, я не проверял).</li>
+</ul>
+<p>Есть и другие сервисы. И все они прекрасно справляются со своими задачами, если понимать их ограничения:</p>
+<ul>
+<li>невозможность кэширования результата;</li>
+<li>невозможность использования внешних сервисов из-за соображениий безопасности;</li>
+<li>невозможность оплатить внешний сервис;</li>
+<li>озвучка может звучать ужасно.</li>
+</ul>
+<h2 id="что-делать-если-невозможно-использовать-внешний-сервис">Что делать, если невозможно использовать внешний сервис?</h2>
+<p>Есть несколько основных вариантов, как организовать озвучку на сайте или в приложении:</p>
+<ol>
+<li>Используя встроенные средства мобильной платформы;</li>
+<li>Используя встроенные средства браузера;</li>
+<li>Заказать предобученную модель;</li>
+<li>Найти предобученную модель в open source.</li>
+</ol>
+<p>У первых двух вариантов качество речи оставляет желать лучшего, но если хочется запилить прототип - то это самое простое и быстрое решение.</p>
+<p>Говоря о заказе моделей, я нашел несколько компаний, которые занимаются синтезом и распознованием речи, а также создают модели под
+конкретные нужды, например, голоса для игр. Я пообщался с компанией Silero, у них есть классные
+<a href="https://habr.com/ru/users/snakers4/posts/">статьи на Хабре</a>, а так же <a href="https://t.me/silero_voice_bot">бот в телеге</a>,
+где можно генерировать разные фразочки разными голосами, например героев из WarCraft.
+Вариант использования проприетарных решений хорош, если вы понимаете, что это даст буст вашему бизнесу или сэкономит
+операционные расходы.</p>
+<p>Что касается поиска моделей в open source - это сплошная головная боль. Все в основном сделано для датасаентистов -
+установи питон, установи кучу пакетов, обучи модель. Практически все, что нашел из предобученного: либо не работало, либо
+давало не тот результат, который бы хотелось. Порог входа - высокий.</p>
+<p>Но в один момент я наткнулся на <a href="https://github.com/coqui-ai/TTS">🐸 Coqui</a>, который оказался развивающимся форком технологии от
+<a href="https://github.com/mozilla/TTS">Mozilla</a> с предобученными моделями в комплекте и хорошим произношением на английском.
+Насколько я понял, самые лучшие результаты базировались на использовании модели <a href="https://github.com/NVIDIA/tacotron2">Tacotron</a>
+от NVIDIA.</p>
+<p>Я был крайне впечатлен <a href="http://erogol.com/ddc-samples/">сэмплами</a> и, вместо изучения английского,
+решил попробовать развернуть и потестировать модель.</p>
+<h2 id="тестируем--coqui">Тестируем 🐸 Coqui</h2>
+<p>Чтобы собрать такой простой <code>docker-compose.yml</code> пришлось потратить не один час, так как было несколько вариантов,
+как запустить модель. К счастью кокуй уже публикует образы, в которые сразу же включена страничка для тестирования.</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e;overflow-x:auto" tabindex="0" data-language="plaintext"><code><span class="line"><span>services:</span></span>
+<span class="line"><span>  coqui-tts:</span></span>
+<span class="line"><span>    image: ghcr.io/coqui-ai/tts-cpu:latest</span></span>
+<span class="line"><span>    ports:</span></span>
+<span class="line"><span>      - &quot;8080:5002&quot;</span></span>
+<span class="line"><span>    volumes:</span></span>
+<span class="line"><span>      - data:/root/.local/share/tts</span></span>
+<span class="line"><span>    entrypoint: [ &quot;python3&quot;, &quot;TTS/server/server.py&quot;, &quot;--model_name&quot;, &quot;tts_models/en/ljspeech/vits&quot; ]</span></span>
+<span class="line"><span>    # entrypoint: [&quot;python3&quot;, &quot;TTS/server/server.py&quot;, &quot;--model_name&quot;, &quot;tts_models/en/ljspeech/tacotron2-DDC&quot;]</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>volumes:</span></span>
+<span class="line"><span>  data:</span></span></code></pre>
+<p>И развернул у себя для тестов.</p>
+<p><img src="/_astro/coqui.CKKOpVGE_8LUBU.webp" alt="🐸 Coqui" loading="lazy" decoding="async" fetchpriority="auto" width="2134" height="778"></p>
+<p>Модель говорит чистым женским голосом и распространяется по лицензиям, которые позволяют использовать ее в
+коммерческих целях в том числе (это естественно лучше всегда перепроверять самостоятельно).</p>
+<p>К слову, Coqui идет с 20 моделями, так что можете поэкспериментировать:</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e;overflow-x:auto" tabindex="0" data-language="plaintext"><code><span class="line"><span># Запускаете образ локально и заходим в консоль</span></span>
+<span class="line"><span>docker run --rm -it -p 5002:5002 --entrypoint /bin/bash ghcr.io/coqui-ai/tts-cpu</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># Вывести на экран список доступных моделей</span></span>
+<span class="line"><span>python3 TTS/server/server.py --list_models</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span># Запускаете сервер с понравившейся моделью</span></span>
+<span class="line"><span>python3 TTS/server/server.py --model_name tts_models/en/ljspeech/tacotron2-DDC</span></span></code></pre>
+<h2 id="прежде-чем-использовать">Прежде чем использовать</h2>
+<p>Приведенный пример в этой статье - это не production-вариант.
+Чтобы использовать ее в продакшене - нужно, как минимум, настроить кэш. А как максимум - прочитать советы по оптимизации
+(в документации они были).</p>  </div> <div class="post-outro"> <a href="#main" class="post-outro__top">↑ Наверх</a> </div> </article>  </main> <footer class="site-footer"> <div class="container container-wide site-footer__inner"> <div class="site-footer__text"> <a href="/ru/" class="site-footer__copy">© 2026 Дмитрий Кузнецов · kuznetsov.dev</a> <span class="site-footer__tagline">Senior Engineering Leader · Ванкувер</span> </div> <ul class="social-links" aria-label="Social links" data-astro-cid-zamss57n> <li data-astro-cid-zamss57n> <a href="https://x.com/deer_avenger" aria-label="Twitter / X" rel="noopener me" target="_blank" data-astro-cid-zamss57n><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a> </li><li data-astro-cid-zamss57n> <a href="https://github.com/dmtrkzntsv" aria-label="GitHub" rel="noopener me" target="_blank" data-astro-cid-zamss57n><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56 0-.27-.01-1.16-.02-2.11-3.2.7-3.87-1.36-3.87-1.36-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.34.95.1-.74.4-1.24.72-1.53-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.18a10.94 10.94 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.58.23 2.75.11 3.04.74.81 1.18 1.83 1.18 3.09 0 4.42-2.69 5.4-5.25 5.68.41.36.78 1.06.78 2.13 0 1.54-.01 2.78-.01 3.16 0 .31.21.67.8.55 4.57-1.52 7.86-5.83 7.86-10.91C23.5 5.65 18.35.5 12 .5z"/></svg></a> </li><li data-astro-cid-zamss57n> <a href="https://www.linkedin.com/in/dmitry-kuznetsov-dev" aria-label="LinkedIn" rel="noopener me" target="_blank" data-astro-cid-zamss57n><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.56V9h3.56zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg></a> </li><li data-astro-cid-zamss57n> <a href="mailto:dmitry@kuznetsov.dev" aria-label="Email" data-astro-cid-zamss57n><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a> </li> </ul>  </div> </footer>  </body></html>

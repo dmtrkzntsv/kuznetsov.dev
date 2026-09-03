@@ -1,0 +1,69 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>N8n - An Open Alternative to Zapier</title><meta name="description" content="How I found and set up a free alternative to Zapier and IFTTT"><link rel="canonical" href="https://kuznetsov.dev/blog/n8n/"><meta property="og:title" content="N8n - An Open Alternative to Zapier"><meta property="og:description" content="How I found and set up a free alternative to Zapier and IFTTT"><meta property="og:type" content="article"><meta property="og:url" content="https://kuznetsov.dev/blog/n8n/"><meta property="og:image" content="https://kuznetsov.dev/og-image.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:locale" content="en_US"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@deer_avenger"><meta name="twitter:title" content="N8n - An Open Alternative to Zapier"><meta name="twitter:description" content="How I found and set up a free alternative to Zapier and IFTTT"><meta name="twitter:image" content="https://kuznetsov.dev/twitter-image.jpg"><link rel="alternate" hreflang="en" href="https://kuznetsov.dev/blog/n8n/"><link rel="alternate" hreflang="ru" href="https://kuznetsov.dev/ru/blog/n8n/"><link rel="alternate" hreflang="x-default" href="https://kuznetsov.dev/blog/n8n/"><link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96"><link rel="icon" type="image/svg+xml" href="/favicons/favicon.svg"><link rel="shortcut icon" href="/favicons/favicon.ico"><link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png"><link rel="manifest" href="/favicons/site.webmanifest"><script defer src="https://t.kuznetsov.dev/js/twillingate.js" data-key="ak_8d67e774d43c34d9fb0cfd2f8bff12cd" data-identity="anonymous"></script><link rel="stylesheet" href="/_astro/_slug_.DE3wu0sT.css">
+<style>.tag-list[data-astro-cid-lga65v7i]{list-style:none;margin:0;padding:0}.callout[data-astro-cid-pyumqe5w]{border-left:3px solid var(--accent);background:var(--surface-2);border-radius:var(--radius-sm);padding:1rem 1.2rem;margin:1.5em 0}.callout--warn[data-astro-cid-pyumqe5w]{border-color:#c98a00}.callout--info[data-astro-cid-pyumqe5w]{border-color:#5670c2}.callout__title[data-astro-cid-pyumqe5w]{font-weight:600;margin-bottom:.4rem;color:var(--text-strong)}
+.social-links[data-astro-cid-zamss57n]{list-style:none;margin:0;padding:0}
+</style></head> <body> <a href="#main" class="skip-link">Skip to content</a> <nav class="lang-switcher-floating" aria-label="Language" data-astro-cid-su6xvggn> <a href="/blog/n8n/" aria-current="true" data-astro-cid-su6xvggn>EN</a> <span aria-hidden="true" data-astro-cid-su6xvggn>/</span> <a href="/ru/blog/n8n/" data-astro-cid-su6xvggn>RU</a> </nav>  <main id="main">  <article class="container section"> <nav class="post-breadcrumbs" aria-label="Breadcrumbs"> <a href="/">Home</a> <span aria-hidden="true">/</span> <a href="/blog/">Blog</a> </nav> <header class="stack-tight" style="margin-bottom: 2rem;"> <h1 style="font-size: 2.2rem; line-height: 1.2;">N8n - An Open Alternative to Zapier</h1> <p class="post-card__meta" style="font-size: 0.95rem;"> <time datetime="2022-03-25T00:00:00.000Z">March 25, 2022</time>   · <a href="/ru/blog/n8n/">Read in Russian</a>  </p> <ul class="tag-list" aria-label="Tags" data-astro-cid-lga65v7i><li data-astro-cid-lga65v7i><a class="tag" href="/tags/howto/" data-astro-cid-lga65v7i>#howto</a></li><li data-astro-cid-lga65v7i><a class="tag" href="/tags/tools/" data-astro-cid-lga65v7i>#tools</a></li></ul> </header> <div class="prose">  <p>How to automatically add a task to Todoist from a message in Telegram? This question has been bothering me for a couple of days, as I am an active user of both platforms and a supporter of the <a href="https://ru.wikipedia.org/wiki/Getting_Things_Done">GTD</a> (Getting Things Done) methodology.</p>
+<p>The platforms I knew, such as <a href="https://zapier.com">Zapier</a>, <a href="https://ifttt.com/">IFTTT</a>, and others (there turned out to be quite a few of them), didn’t solve this task. I was about to unleash my programming skills and quickly hack together an integration, but then I remembered the service <a href="https://n8n.io/">n8n</a>, which didn’t show up in my search results. I remembered it because someone recommended it to me, <a href="https://malikov.tech/">Mr. Malikov</a>.</p>
+<h2 id="what-is-n8n-ifttt-zapier">What is N8n, IFTTT, Zapier?</h2>
+<p>The essence of all these services is to automate certain routine operations. And it works on the principle of
+<strong>If</strong> <strong>T</strong>his <strong>T</strong>hen <strong>T</strong>hat.</p>
+<p>I consider such services as “no-code” services. Literally within a few minutes, without programming, you can set up business processes for yourself. For example, sending a message to Telegram if you receive an email. To make everything as simple as possible for the end user, all these popular services offer a subscription to the cloud version (while most of them don’t offer any other option).</p>
+<h2 id="what-sets-n8n-apart-from-others">What sets n8n apart from others?</h2>
+<p>For me, the key difference between n8n and Zapier (and other services) turned out to be that it is open source, meaning you can easily deploy the service on your own hosting (but there is also a cloud version available). Furthermore, I discovered that you can write your own JavaScript handlers (n8n is written in JS) directly in the browser, which gives you maximum freedom and opens up new possibilities for automation. Also, it’s worth noting that n8n comes with over 200 integrations out of the box with the most popular services and protocols.</p>
+<p>Interestingly, the inability to create tasks in Todoist from Telegram in all popular platforms of this type served as a trigger for me to explore this tool.</p>
+<h2 id="setting-up-your-own-n8n-for-personal-automation-needs">Setting up your own n8n for personal automation needs</h2>
+<p>Here’s what my <code>docker-compose.yml</code> looks like for <code>n8n</code>, with the database stored in <code>SQLite</code> (you can use <code>PostgreSQL</code>, but for personal purposes, it seems like overhead).</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e;overflow-x:auto" tabindex="0" data-language="plaintext"><code><span class="line"><span>version: &#39;3.1&#39;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>services:</span></span>
+<span class="line"><span>  n8n:</span></span>
+<span class="line"><span>    image: n8nio/n8n</span></span>
+<span class="line"><span>    restart: always</span></span>
+<span class="line"><span>    environment:</span></span>
+<span class="line"><span>      - N8N_VERSION_NOTIFICATIONS_ENABLED=false</span></span>
+<span class="line"><span>      - N8N_HOST=&lt;PUT_HERE_YOUR_DOMAIN&gt;</span></span>
+<span class="line"><span>      - N8N_PORT=5678</span></span>
+<span class="line"><span>      - N8N_PROTOCOL=https</span></span>
+<span class="line"><span>      - WEBHOOK_URL=https://&lt;PUT_HERE_YOUR_DOMAIN&gt;/</span></span>
+<span class="line"><span>      - NODE_ENV=production</span></span>
+<span class="line"><span>      - N8N_PUSH_BACKEND=websocket</span></span>
+<span class="line"><span>    ports:</span></span>
+<span class="line"><span>      - 15678:5678</span></span>
+<span class="line"><span>    volumes:</span></span>
+<span class="line"><span>      - /PATH/TO/.n8n:/home/node/.n8n</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>  # Dependency for the &quot;n8n-nodes-browserless&quot; community plugin</span></span>
+<span class="line"><span>  browserless:</span></span>
+<span class="line"><span>    image: browserless/chrome:latest</span></span>
+<span class="line"><span>    restart: always</span></span>
+<span class="line"><span>    environment:</span></span>
+<span class="line"><span>      - MAX_CONCURRENT_SESSIONS=10</span></span>
+<span class="line"><span>      - CONNECTION_TIMEOUT=120000</span></span>
+<span class="line"><span>      - TOKEN=&lt;PUT_HERE_ANY_RANDOM_STRING&gt;</span></span>
+<span class="line"><span>    depends_on:</span></span>
+<span class="line"><span>      - n8n</span></span></code></pre>
+<p>To make everything look good on your VPS, I recommend setting up Nginx and <a href="https://letsencrypt.org/">obtaining certificates for HTTPS</a> right away.</p>
+<p>Example Nginx configuration (before obtaining the certificate):</p>
+<pre class="astro-code github-light" style="background-color:#fff;color:#24292e;overflow-x:auto" tabindex="0" data-language="plaintext"><code><span class="line"><span>server {</span></span>
+<span class="line"><span>    server_name &lt;PUT_HERE_YOUR_DOMAIN&gt;;</span></span>
+<span class="line"><span>    access_log /var/log/nginx/n8n_access.log;</span></span>
+<span class="line"><span>    error_log /var/log/nginx/n8n_error.log;</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>    location / {</span></span>
+<span class="line"><span>        proxy_pass http://127.0.0.1:15678;</span></span>
+<span class="line"><span>        proxy_http_version 1.1;</span></span>
+<span class="line"><span>        proxy_set_header Upgrade $http_upgrade;</span></span>
+<span class="line"><span>        proxy_set_header Connection &quot;Upgrade&quot;;</span></span>
+<span class="line"><span>        proxy_set_header Host $host;</span></span>
+<span class="line"><span>    }</span></span>
+<span class="line"><span>}</span></span></code></pre>
+<h2 id="how-to-set-up-integration-between-telegram-and-todoist">How to set up integration between Telegram and Todoist?</h2>
+<p>First, you need to add two integrations: Telegram and Todoist. To do this, click on the key icon (Credentials) in the left panel and click on <code>New</code>. Once both accesses are registered, you can create the actual workflow, from the trigger to the desired action, by clicking on the big red plus sign on the right.</p>
+<p>During the workflow setup, it’s important to follow the following principle: there are incoming data in a certain format. Throughout the flow, you can use and transform these data. But the question arises: in what format do the data come and where can they be viewed? For this purpose, there is the “executions” section, where you can view the “executions”. This way, you can understand which path to use in conditions.</p>
+<p>In the end, my workflow took the following form:</p>
+<p><img src="/_astro/trigger.CYthFaeD_Z2ddGjO.webp" alt loading="lazy" decoding="async" fetchpriority="auto" width="1012" height="629"></p>
+<p>Later on, I set up automations that sent me notifications in Telegram when Github Actions were executed.</p>
+<h3 id="useful-links">Useful links</h3>
+<ul>
+<li><a href="https://n8n.io/">Official n8n website</a></li>
+</ul>
+<p><em>Translated by ChatGPT</em></p>  </div> <div class="post-outro"> <a href="#main" class="post-outro__top">↑ Back to top</a> </div> </article>  </main> <footer class="site-footer"> <div class="container container-wide site-footer__inner"> <div class="site-footer__text"> <a href="/" class="site-footer__copy">© 2026 Dmitry Kuznetsov · kuznetsov.dev</a> <span class="site-footer__tagline">Senior Engineering Leader · Vancouver, BC</span> </div> <ul class="social-links" aria-label="Social links" data-astro-cid-zamss57n> <li data-astro-cid-zamss57n> <a href="https://x.com/deer_avenger" aria-label="Twitter / X" rel="noopener me" target="_blank" data-astro-cid-zamss57n><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a> </li><li data-astro-cid-zamss57n> <a href="https://github.com/dmtrkzntsv" aria-label="GitHub" rel="noopener me" target="_blank" data-astro-cid-zamss57n><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56 0-.27-.01-1.16-.02-2.11-3.2.7-3.87-1.36-3.87-1.36-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.34.95.1-.74.4-1.24.72-1.53-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.18a10.94 10.94 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.58.23 2.75.11 3.04.74.81 1.18 1.83 1.18 3.09 0 4.42-2.69 5.4-5.25 5.68.41.36.78 1.06.78 2.13 0 1.54-.01 2.78-.01 3.16 0 .31.21.67.8.55 4.57-1.52 7.86-5.83 7.86-10.91C23.5 5.65 18.35.5 12 .5z"/></svg></a> </li><li data-astro-cid-zamss57n> <a href="https://www.linkedin.com/in/dmitry-kuznetsov-dev" aria-label="LinkedIn" rel="noopener me" target="_blank" data-astro-cid-zamss57n><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zm1.78 13.02H3.56V9h3.56zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg></a> </li><li data-astro-cid-zamss57n> <a href="mailto:dmitry@kuznetsov.dev" aria-label="Email" data-astro-cid-zamss57n><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a> </li> </ul>  </div> </footer>  </body></html>
